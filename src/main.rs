@@ -29,9 +29,14 @@ fn main() {
         }
         Method::Lab => {
             use lance_tools::protos::Metadata;
+            use prost::Message;
             let mut metadata = Metadata::default();
             metadata.manifest_position = 1024;
-            println!("metadata: {:?}", metadata)
+            println!("metadata: {:?}", metadata);
+            let mut buf = Vec::new();
+            metadata.encode(&mut buf);
+            let decoded = Metadata::decode(&*buf);
+            println!("decoded: {:?}",decoded)
         }
     }
 }
