@@ -1,3 +1,4 @@
+use std::fs::Metadata;
 use clap::{arg, Parser};
 
 
@@ -5,6 +6,7 @@ use clap::{arg, Parser};
 enum Method {
     Inspect,
     Show,
+    Lab,
 }
 
 #[derive(Parser, Debug)]
@@ -24,6 +26,12 @@ fn main() {
         Method::Show => {
             println!("show!");
             todo!()
+        }
+        Method::Lab => {
+            use lance_tools::protos::Metadata;
+            let mut metadata = Metadata::default();
+            metadata.manifest_position = 1024;
+            println!("metadata: {:?}", metadata)
         }
     }
 }
