@@ -1,4 +1,4 @@
-use std::fs::Metadata;
+use std::fs;
 use clap::{arg, Parser};
 
 
@@ -14,6 +14,9 @@ enum Method {
 struct Args {
     #[clap(value_enum)]
     method: Method,
+
+    #[clap(value_parser)]
+    file_path: String
 }
 
 fn main() {
@@ -28,15 +31,22 @@ fn main() {
             todo!()
         }
         Method::Lab => {
-            use lance_tools::protos::Metadata;
+            use lance_tools::protos::Metadata as MetaPB;
             use prost::Message;
-            let mut metadata = Metadata::default();
-            metadata.manifest_position = 1024;
-            println!("metadata: {:?}", metadata);
+            let mut meta_pb = MetaPB::default();
+            meta_pb.manifest_position = 1024;
+            println!("metapb: {:?}", meta_pb);
             let mut buf = Vec::new();
-            metadata.encode(&mut buf);
-            let decoded = Metadata::decode(&*buf);
-            println!("decoded: {:?}",decoded)
+            meta_pb.encode(&mut buf);
+            let decoded = MetaPB::decode(&*buf);
+            println!("decoded: {:?}",decoded);
+            use lance_tools::format::metadata::get_schema;
+
+            println!("path: {:?}", args.file_path);
+            let mut file = fs::File::open(args.file_path).unwrap();
+
+            let metadata = get_schema(&mut file,0);
+            println!("metadata {:?}",metadata)
         }
     }
 }
