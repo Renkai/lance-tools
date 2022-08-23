@@ -1,5 +1,5 @@
 use std::fs;
-use clap::{arg, Parser};
+use clap::{Parser};
 
 
 #[derive(clap::ValueEnum, Clone, Debug)]

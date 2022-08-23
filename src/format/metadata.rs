@@ -7,7 +7,7 @@ pub struct Metadata {
     pb: MetaPB,
 }
 
-use std::io::{Cursor, Error, ErrorKind, Read, Result, Seek, SeekFrom};
+use std::io::{Cursor, Read, Seek, SeekFrom};
 
 pub fn get_schema<R: Read + Seek>(file: &mut R, pos: i64) -> Metadata {
     // let mut str = String::new();
