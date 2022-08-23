@@ -37,7 +37,7 @@ fn main() {
             meta_pb.manifest_position = 1024;
             println!("metapb: {:?}", meta_pb);
             let mut buf = Vec::new();
-            meta_pb.encode(&mut buf);
+            meta_pb.encode(&mut buf).unwrap();
             let decoded = MetaPB::decode(&*buf);
             println!("decoded: {:?}",decoded);
             use lance_tools::format::metadata::get_schema;
