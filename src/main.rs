@@ -44,8 +44,8 @@ fn main() {
 
             println!("path: {:?}", args.file_path);
             let mut file = fs::File::open(args.file_path).unwrap();
-
-            let metadata = get_schema(&mut file, 0);
+            println!("file meta: {:?}", file.metadata().unwrap());
+            let metadata = get_schema(&mut file);
             println!("metadata {:?}", metadata);
         }
     }
